@@ -1,0 +1,9 @@
+# Features directory
+# Each feature should follow this structure:
+# features/[feature-name]/
+#   ├── model/types.ts
+#   ├── api/[feature]-api.ts
+#   ├── lib/use-[feature].ts
+#   ├── ui/[components].tsx
+#   └── index.ts
+
