@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
+const BASE_URL =  'backend:8000';
 
 export interface ApiError {
   error: string;
