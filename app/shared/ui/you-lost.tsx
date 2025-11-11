@@ -65,47 +65,43 @@ const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
         className={cn("relative w-full flex flex-col items-center", className)}
         {...props}
       >
-        {/* White Container */}
-        <div className="relative z-10 w-full bg-white rounded-[39.28px] border-[7.66px] border-[#468DFB] p-6 md:p-8 mb-8">
-          {/* Sad Emoji Animation */}
-          <div className="flex justify-center mb-8">
-            <div className="relative w-[409px] h-[338px] rounded-[46px] overflow-hidden">
-              {sadEmojiData ? (
-                <Lottie
-                  animationData={sadEmojiData}
-                  loop={true}
-                  autoplay={true}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-200 rounded-[46px] flex items-center justify-center">
-                  <span className="text-8xl">😢</span>
-                </div>
-              )}
-            </div>
-          </div>
+        {/* Animation icon placeholder */}
+        <div className="mb-6 text-[81px] font-normal text-[#00820B] text-center" style={{ fontFamily: 'Bakbak One, Arial, sans-serif' }}>
+          Animation icon here
+        </div>
 
+        {/* Main Container */}
+        <div 
+          className="relative z-10 w-full rounded-[29px] p-6 md:p-8 mb-8"
+          style={{
+            background: 'linear-gradient(137deg, rgba(11, 141, 217, 1) 4%, rgba(45, 195, 248, 1) 100%)',
+            boxShadow: '0px 4.24px 35.10px 0px rgba(0, 0, 0, 0.25)',
+          }}
+        >
           {/* Try again tomorrow! Title */}
-          <h1 className="text-3xl md:text-5xl lg:text-[88.43px] font-normal text-black leading-[1.157] text-center mb-6" style={{ fontFamily: 'Arial Rounded MT Bold, Arial, sans-serif' }}>
+          <h1 
+            className="text-3xl md:text-5xl lg:text-[101px] font-normal text-white leading-[1.14] text-center mb-8" 
+            style={{ fontFamily: 'Bakbak One, Arial, sans-serif' }}
+          >
             Try again tomorrow!
           </h1>
 
           {/* Better luck text */}
-          <p className="text-lg md:text-2xl lg:text-[49.23px] font-semibold text-black text-center leading-[1.362] mb-8 font-[var(--font-open-sans)]">
+          <p className="text-lg md:text-2xl lg:text-[51.55px] font-semibold text-white text-center leading-[1.362] mb-8 font-[var(--font-open-sans)]">
             Better luck next time. Come back tomorrow for another spin
           </p>
         </div>
 
-        {/* Claim Prize & Play Again Button */}
+        {/* Play Again 24h Button */}
         <button
           onClick={onTryAgain}
-          className="relative z-10 w-full max-w-[877px] h-auto min-h-[200px] rounded-[110px] border-[3px] border-white text-white text-2xl md:text-4xl lg:text-[62px] font-normal leading-[1.157] hover:opacity-90 px-8 py-4"
+          className="relative z-10 w-full max-w-[784px] h-[200px] rounded-[110px] text-white text-2xl md:text-4xl lg:text-[69px] font-normal leading-[1.4] hover:opacity-90"
           style={{
-            fontFamily: 'Arial Rounded MT Bold, Arial, sans-serif',
-            background: 'linear-gradient(127deg, #3D79F8 0%, #EF6632 100%)',
+            fontFamily: 'Bakbak One, Arial, sans-serif',
+            background: '#FF9442',
           }}
         >
-          Claim Prize & Play Again
+          Play Again 24h
         </button>
       </div>
     );

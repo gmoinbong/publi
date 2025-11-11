@@ -27,6 +27,7 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
     const [currentBrand, setCurrentBrand] = React.useState<string>("");
     const [progress, setProgress] = React.useState(0);
     const [isComplete, setIsComplete] = React.useState(false);
+    const [isWin, setIsWin] = React.useState(false);
     
     const spinRefs = [
       React.useRef<HTMLDivElement>(null),
@@ -39,6 +40,7 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
       
       setIsSpinning(true);
       setIsComplete(false);
+      setIsWin(false);
       setProgress(0);
       
       // Select random winners for each slot
@@ -52,6 +54,7 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
       
       // Check if all three slots match (win condition)
       const winResult = newWinners[0] === newWinners[1] && newWinners[1] === newWinners[2];
+      setIsWin(winResult);
       
       // Animate slots
       const duration = 3000; // 3 seconds
@@ -84,7 +87,7 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
         if (slotRef.current) {
           const targetIndex = newWinners[index];
           const totalSpins = 20 + targetIndex; // Multiple full rotations
-          const cardHeight = 377.49; // Height from Figma
+          const cardHeight = 403; // Height from Figma
           const targetPosition = -(totalSpins * cardHeight);
           
           slotRef.current.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
@@ -122,21 +125,36 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
       >
         {/* Spinning Status */}
         {isSpinning && (
-          <h2 className="text-3xl md:text-5xl lg:text-[95px] font-normal text-black text-left mb-6" style={{ fontFamily: 'Arial Rounded MT Bold, Arial, sans-serif' }}>
+          <h2 
+            className="text-3xl md:text-5xl lg:text-[101px] font-normal text-[#163446] text-center mb-6" 
+            style={{ 
+              fontFamily: 'Bakbak One, Arial, sans-serif',
+              lineHeight: '1.14em',
+            }}
+          >
             Spinning for {currentBrand}
           </h2>
         )}
 
         {/* Slot Machine Container */}
-        <div className="relative w-full bg-white rounded-[37.25px] border-[7.27px] border-[#468DFB] p-6 md:p-8">
+        <div 
+          className="relative w-full rounded-[29px] p-6 md:p-8"
+          style={{
+            background: 'linear-gradient(137deg, rgba(11, 141, 217, 1) 4%, rgba(45, 195, 248, 1) 100%)',
+            boxShadow: '0px 4.24px 35.10px 0px rgba(0, 0, 0, 0.25)',
+          }}
+        >
           {/* Three Slot Columns */}
           <div className="flex gap-4 justify-center items-start">
             {[0, 1, 2].map((slotIndex) => (
               <div
                 key={slotIndex}
-                className="relative w-[252.78px] h-[377.49px] overflow-hidden rounded-[26.96px]"
+                className="relative w-[283.33px] h-[403px] overflow-hidden rounded-[22.88px]"
                 style={{
-                  background: 'linear-gradient(180deg, #4CAAFB 0%, #53DFF8 49%, #F78637 100%)',
+                  background: isComplete && isWin && slotIndex === 1
+                    ? 'linear-gradient(180deg, rgba(63, 210, 161, 1) 0%, rgba(68, 209, 248, 1) 100%)'
+                    : '#F9FAFC',
+                  border: '3.52px solid #111D21',
                 }}
               >
                 {/* Scrolling Cards */}
@@ -150,9 +168,9 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
                   {extendedSponsors.map((sponsor, index) => (
                     <div
                       key={index}
-                      className="w-full h-[377.49px] flex flex-col items-center justify-center p-4"
+                      className="w-full h-[403px] flex flex-col items-center justify-center p-4"
                     >
-                      <div className="text-[30.42px] font-bold text-[#006AAD] uppercase mb-4 text-center font-[var(--font-open-sans)]">
+                      <div className="text-[30.42px] font-bold text-[#163446] uppercase mb-4 text-center" style={{ fontFamily: 'var(--font-open-sans)' }}>
                         Gift Card
                       </div>
                       <div className="relative w-[214.52px] h-[67.22px] mb-4">
@@ -177,16 +195,47 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
           {/* Progress Indicator */}
           {isSpinning && (
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-              <div className="relative w-[291px] h-[291px]">
-                <div className="absolute inset-0 rounded-full border-8 border-transparent" />
+              <div className="relative w-[303px] h-[303px]">
+                <div 
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: '#FFFFFF',
+                    border: '13.39px solid #0C97E4',
+                  }}
+                />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-[153.16px] h-[110.74px] bg-[#FDFDFE] rounded flex items-center justify-center">
-                    <span className="text-[87.26px] font-semibold text-black font-[var(--font-open-sans)]">
-                      {Math.round(progress)}%
-                    </span>
-                  </div>
+                  <span 
+                    className="text-[93.17px] font-normal text-black"
+                    style={{ fontFamily: 'Bakbak One, Arial, sans-serif' }}
+                  >
+                    {Math.round(progress)}%
+                  </span>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* Complete Text */}
+          {isComplete && !isSpinning && (
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+              <span 
+                className="text-[49.44px] font-semibold text-black"
+                style={{ fontFamily: 'var(--font-open-sans)' }}
+              >
+                Complete
+              </span>
+            </div>
+          )}
+
+          {/* Didn't Win Text */}
+          {isComplete && !isSpinning && !isWin && (
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+              <span 
+                className="text-[90.53px] font-semibold text-black"
+                style={{ fontFamily: 'var(--font-open-sans)' }}
+              >
+                Didn&apos;t Win
+              </span>
             </div>
           )}
         </div>

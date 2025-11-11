@@ -7,6 +7,7 @@ import {
   SlotMachine,
   YouWon,
   YouLost,
+  ClaimReward,
 } from "./shared";
 import { useCountdown } from "./hooks/use-countdown";
 import { useState, useRef } from "react";
@@ -60,6 +61,7 @@ export default function HomePage() {
   const [showSlotMachine, setShowSlotMachine] = useState(false);
   const [showYouWon, setShowYouWon] = useState(false);
   const [showYouLost, setShowYouLost] = useState(false);
+  const [showClaimReward, setShowClaimReward] = useState(false);
   const [winner, setWinner] = useState<typeof sponsors[0] | null>(null);
   const slotMachineRef = useRef<{ startSpin: () => void }>(null);
 
@@ -95,16 +97,65 @@ export default function HomePage() {
 
   const handleClaim = () => {
     setShowYouWon(false);
-    setShowYouLost(false);
-    setShowSlotMachine(false);
+    setShowClaimReward(true);
+  };
+
+  const handleClaimSubmit = (data: { fullName: string; phone: string; email: string }) => {
+    // Handle form submission here
+    console.log("Claim data:", data);
+    setShowClaimReward(false);
     setWinner(null);
   };
 
+  const handleSpinAgain = () => {
+    setShowYouWon(false);
+    setShowYouLost(false);
+    setShowSlotMachine(false);
+    setShowClaimReward(false);
+    setWinner(null);
+  };
+
+  const handleBackFromClaim = () => {
+    setShowClaimReward(false);
+    if (winner) {
+      setShowYouWon(true);
+    }
+  };
+
+  if (showClaimReward && winner) {
+    return (
+      <main 
+        className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
+        style={{
+          background: '#F6F8FB',
+        }}
+      >
+        <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
+          <ClaimReward 
+            winner={winner} 
+            onSubmit={handleClaimSubmit}
+            onBack={handleBackFromClaim}
+          />
+        </div>
+      </main>
+    );
+  }
+
   if (showYouWon && winner) {
     return (
-      <main className="min-h-screen w-full flex flex-col items-center bg-gradient-to-br from-[#7CE3EA] to-[#FF9344] overflow-x-hidden">
+      <main 
+        className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
+        style={{
+          background: 'linear-gradient(136deg, rgba(246, 248, 251, 1) 12%, rgba(255, 207, 178, 1) 100%)',
+        }}
+      >
         <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
-          <YouWon winner={winner} onClaim={handleClaim} />
+          <YouWon 
+            winner={winner} 
+            onClaim={handleClaim}
+            onSpinAgain={handleSpinAgain}
+            brandLink="https://example.com"
+          />
         </div>
       </main>
     );
@@ -112,9 +163,14 @@ export default function HomePage() {
 
   if (showYouLost) {
     return (
-      <main className="min-h-screen w-full flex flex-col items-center bg-gradient-to-br from-[#7CE3EA] to-[#FF9344] overflow-x-hidden">
+      <main 
+        className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
+        style={{
+          background: 'linear-gradient(136deg, rgba(246, 248, 251, 1) 19%, rgba(255, 207, 178, 1) 100%)',
+        }}
+      >
         <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
-          <YouLost onTryAgain={handleClaim} />
+          <YouLost onTryAgain={handleSpinAgain} />
         </div>
       </main>
     );
@@ -122,7 +178,12 @@ export default function HomePage() {
 
   if (showSlotMachine) {
     return (
-      <main className="min-h-screen w-full flex flex-col items-center bg-gradient-to-br from-[#7CE3EA] to-[#FF9344] overflow-x-hidden">
+      <main 
+        className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
+        style={{
+          background: 'linear-gradient(137deg, rgba(246, 248, 251, 1) 7%, rgba(255, 207, 178, 1) 100%)',
+        }}
+      >
         <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
           <SlotMachine
             sponsors={sponsors}
@@ -136,15 +197,23 @@ export default function HomePage() {
   }
 
   return (
-    <main className="min-h-screen w-full flex flex-col items-center bg-gradient-to-br from-[#7CE3EA] to-[#FF9344] overflow-x-hidden">
+    <main 
+      className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
+      style={{
+        background: 'linear-gradient(133deg, rgba(246, 248, 251, 1) 0%, rgba(255, 207, 178, 1) 100%)',
+      }}
+    >
       <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
         {/* White Container */}
-        <div className="relative w-full bg-white rounded-[41px] p-6 md:p-8 mb-8">
+        <div className="relative w-full bg-white rounded-[41px] p-6 md:p-8 mb-8" style={{ boxShadow: '0px 4px 33.10px 0px rgba(0, 0, 0, 0.25)' }}>
           {/* Header */}
-          <h1 className="text-4xl md:text-6xl lg:text-[116.55px] font-normal text-black leading-[1.157] text-left mb-4" style={{ fontFamily: 'Arial Rounded MT Bold, Arial, sans-serif' }}>
-            Ready to Win?
+          <h1 
+            className="text-4xl md:text-6xl lg:text-[117.62px] font-normal text-[#163446] leading-[1.4] text-left mb-4" 
+            style={{ fontFamily: 'Bakbak One, Arial, sans-serif' }}
+          >
+            READY TO WIN?
           </h1>
-          <p className="text-lg md:text-3xl lg:text-[60px] font-semibold text-black text-center leading-[1.362] mb-8 font-[var(--font-open-sans)]">
+          <p className="text-lg md:text-3xl lg:text-[55.81px] font-semibold text-[#163446] text-center leading-[1.362] mb-8 font-[var(--font-open-sans)]">
             Spin the wheel and win rewards from our sponsors
           </p>
 
@@ -171,17 +240,17 @@ export default function HomePage() {
           <CountdownTimer seconds={seconds} />
         </div>
 
-        {/* Swipe to Spin Button */}
+        {/* Spin Now Button */}
         <Button
           onClick={handleSpin}
-          className="w-full max-w-[656px] h-auto min-h-[200px] rounded-[110px] border-[3px] border-white text-white text-2xl md:text-4xl lg:text-[62px] font-normal leading-[1.157] hover:opacity-90 px-8 py-4"
+          className="w-full max-w-[779px] h-[200px] rounded-[110px] text-white text-2xl md:text-4xl lg:text-[77.86px] font-normal leading-[1.4] hover:opacity-90"
           style={{ 
-            fontFamily: 'Arial Rounded MT Bold, Arial, sans-serif',
-            background: 'linear-gradient(127deg, #3D79F8 0%, #EF6632 100%)'
+            fontFamily: 'Bakbak One, Arial, sans-serif',
+            background: 'linear-gradient(90deg, rgba(6, 144, 225, 1) 0%, rgba(56, 207, 253, 1) 100%)'
           }}
           size="lg"
         >
-          SWIPE TO SPIN
+          SPIN NOW
         </Button>
       </div>
     </main>
