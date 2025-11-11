@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { cn } from "../lib/utils";
-import Image from "next/image";
 
 export interface Sponsor {
   name: string;
@@ -174,11 +173,10 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
                         Gift Card
                       </div>
                       <div className="relative w-[214.52px] h-[67.22px] mb-4">
-                        <Image
+                        <img
                           src={sponsor.logo}
                           alt={sponsor.name}
-                          fill
-                          className="object-contain"
+                          className="w-full h-full object-contain"
                         />
                       </div>
                       <div className="relative w-[50.88px] h-[63.61px]">

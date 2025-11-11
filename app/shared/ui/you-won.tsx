@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { cn } from "../lib/utils";
-import Image from "next/image";
 import Lottie from "lottie-react";
 
 export interface Sponsor {
@@ -135,12 +134,10 @@ const YouWon = React.forwardRef<HTMLDivElement, YouWonProps>(
                     Gift Card
                   </div>
                   <div className="relative w-[214.52px] h-[67.22px] mb-4">
-                    <Image
+                    <img
                       src={winner.logo}
                       alt={winner.name}
-                      fill
-                      className="object-contain"
-                      sizes="214.52px"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                   {index === 1 && (

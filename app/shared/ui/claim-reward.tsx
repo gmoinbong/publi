@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { cn } from "../lib/utils";
-import Image from "next/image";
 
 export interface Sponsor {
   name: string;
@@ -63,12 +62,10 @@ const ClaimReward = React.forwardRef<HTMLDivElement, ClaimRewardProps>(
             </span>
             <div className="flex items-center gap-2">
               <div className="relative w-[64px] h-[64px]">
-                <Image
+                <img
                   src={winner.logo}
                   alt={winner.name}
-                  fill
-                  className="object-contain"
-                  sizes="64px"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <span

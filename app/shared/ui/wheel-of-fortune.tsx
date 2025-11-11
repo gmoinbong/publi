@@ -1,6 +1,5 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
-import Image from "next/image";
 
 export interface WheelOfFortuneProps {
   className?: string;
@@ -19,12 +18,10 @@ const WheelOfFortune = React.forwardRef<HTMLDivElement, WheelOfFortuneProps>(
         {...props}
       >
         {imageUrl ? (
-          <Image
+          <img
             src={imageUrl}
             alt="Wheel of Fortune"
-            fill
-            className="object-contain"
-            sizes="(max-width: 768px) 100vw, 1203px"
+            className="w-full h-full object-contain"
           />
         ) : (
           <div className="w-full h-full rounded-[29px] bg-gradient-to-br from-[#0B8DD9] to-[#2DC3F8] shadow-[0px_4.24px_35.1px_rgba(0,0,0,0.25)]" />

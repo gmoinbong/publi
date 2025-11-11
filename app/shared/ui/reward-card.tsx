@@ -1,6 +1,5 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
-import Image from "next/image";
 
 export interface RewardCardProps {
   sponsorName: string;
@@ -23,12 +22,10 @@ const RewardCard = React.forwardRef<HTMLDivElement, RewardCardProps>(
       >
         {logoUrl && (
           <div className="relative w-[135.83px] h-[138.84px] mb-4 flex-shrink-0">
-            <Image
+            <img
               src={logoUrl}
               alt={logoAlt || sponsorName}
-              fill
-              className="object-contain"
-              sizes="135.83px"
+              className="w-full h-full object-contain"
             />
           </div>
         )}
