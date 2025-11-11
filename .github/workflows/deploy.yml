@@ -23,6 +23,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Copy .htaccess
+        run: |
+          if [ -f public/.htaccess ]; then
+            cp public/.htaccess dist/.htaccess
+            echo ".htaccess copied to dist/"
+          else
+            echo "Warning: public/.htaccess not found"
+          fi
+
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
