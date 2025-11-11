@@ -16,10 +16,16 @@ jobs:
           node-version: 18
 
       - name: Install deps
+        working-directory: ./frontend
         run: npm ci
 
       - name: Build
+        working-directory: ./frontend
         run: npm run build
+
+      - name: List build output
+        working-directory: ./frontend
+        run: ls -la out/ | head -20
 
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -27,5 +33,5 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./out/
+          local-dir: ./frontend/out/
           server-dir: ${{ secrets.FTP_PATH }}
