@@ -147,11 +147,9 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
         {...props}
       >
         {/* Spinning Status */}
-        {isSpinning && (
-          <h2 className="text-3xl md:text-5xl lg:text-[101px] font-heading text-[#163446] text-center mb-6 leading-[1.14]">
-            Spinning for {currentBrand}
-          </h2>
-        )}
+        <h2 className="text-3xl md:text-5xl lg:text-[101px] font-heading text-[#163446] text-center mb-6 leading-[1.14]">
+          Spinning for {currentBrand}
+        </h2>
 
         {/* Slot Machine Container */}
         <div
@@ -189,7 +187,6 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
                       key={index}
                       className="w-full h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] xl:h-[450px] flex flex-col items-center justify-center p-3 sm:p-4"
                     >
-             
                       <div className="relative w-[120px] h-[40px] sm:w-[150px] sm:h-[50px] md:w-[180px] md:h-[55px] lg:w-[200px] lg:h-[60px] xl:w-[214.52px] xl:h-[67.22px] mb-2 sm:mb-3 md:mb-4">
                         <img
                           src={sponsor.logo}

@@ -41,7 +41,7 @@ const YouWon = React.forwardRef<HTMLDivElement, YouWonProps>(
       <div
         ref={ref}
         className={cn(
-          "relative w-full flex flex-col items-center justify-center min-h-full",
+          "relative w-full flex flex-col items-center justify-center min-h-full pb-10",
           className
         )}
         {...props}
@@ -50,12 +50,12 @@ const YouWon = React.forwardRef<HTMLDivElement, YouWonProps>(
         <ConfettiBackground />
 
         {/* Brand Link at top */}
-        <div className="flex flex-col items-center">
+        <div className="pb-4 flex flex-col items-center">
           <BrandLinkAnimation brandLink={brandLink} onClick={handleGiftClick} />
         </div>
 
         {/* YOU WON! Title */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[101px] font-heading text-[#163446] leading-[1.14] text-center ">
+        <h1 className="pb-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[101px] font-heading text-[#163446] leading-[1.14] text-center ">
           YOU WON!
         </h1>
 
@@ -80,7 +80,7 @@ const YouWon = React.forwardRef<HTMLDivElement, YouWonProps>(
                 key={index}
                 sponsor={winner}
                 isHighlighted={true}
-                showGiftIcon={index === 1}
+                showGiftIcon={true}
                 className="flex-1 min-w-0 basis-0"
               />
             ))}
@@ -88,7 +88,7 @@ const YouWon = React.forwardRef<HTMLDivElement, YouWonProps>(
         </div>
 
         {/* Congratulations Text - below container */}
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-[57.44px] font-body-semibold text-black text-center leading-[1.362] px-4 sm:px-6 mt-8 sm:mt-10 md:mt-12 lg:mt-16">
+        <p className="text-lg w-[80%] sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-[57.44px] font-body-semibold text-black text-center leading-[1.362] px-4 sm:px-6 mt-8 sm:mt-10 md:mt-12 lg:mt-16">
           Congratulations - You&apos;ve{" "}
           <span className="text-black font-bold">
             won {winner.name} {winner.reward}
