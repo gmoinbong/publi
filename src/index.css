@@ -81,5 +81,49 @@
     color: hsl(var(--foreground));
     font-family: var(--font-open-sans);
   }
+  
+  /* Font utility classes */
+  .font-heading {
+    font-family: var(--font-bakbak-one);
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .font-body {
+    font-family: var(--font-open-sans);
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .font-body-semibold {
+    font-family: var(--font-open-sans);
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  .font-body-bold {
+    font-family: var(--font-open-sans);
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  /* Hide scrollbar for WebKit browsers */
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Animation for gift on win screen */
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-10px) scale(1.1);
+    }
+  }
+  
+  .animate-bounce {
+    animation: bounce 0.6s ease-in-out;
+  }
 }
 

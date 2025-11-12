@@ -1,11 +1,6 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
-
-export interface Sponsor {
-  name: string;
-  reward: string;
-  logo: string;
-}
+import type { Sponsor } from "../types";
 
 export interface ClaimRewardProps {
   winner: Sponsor;
@@ -34,15 +29,12 @@ const ClaimReward = React.forwardRef<HTMLDivElement, ClaimRewardProps>(
         {...props}
       >
         {/* Title */}
-        <h1
-          className="text-4xl md:text-6xl lg:text-[106.87px] font-normal text-[#163446] leading-[1.16] text-center mb-6"
-          style={{ fontFamily: "Bakbak One, Arial, sans-serif" }}
-        >
+        <h1 className="text-4xl md:text-6xl lg:text-[106.87px] font-heading text-[#163446] leading-[1.16] text-center mb-6">
           Claim your Reward
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-2xl lg:text-[43px] font-semibold text-black text-center leading-[1.362] mb-8 font-[var(--font-open-sans)]">
+        <p className="text-lg md:text-2xl lg:text-[43px] font-body-semibold text-black text-center leading-[1.362] mb-8">
           Fill in your details to receive your voucher
         </p>
 
@@ -52,10 +44,7 @@ const ClaimReward = React.forwardRef<HTMLDivElement, ClaimRewardProps>(
             className="w-full h-[85px] rounded-[14px] flex items-center justify-between px-4"
             style={{ background: "#C3ECFF" }}
           >
-            <span
-              className="text-[51.55px] font-normal text-[#124258]"
-              style={{ fontFamily: "Bakbak One, Arial, sans-serif" }}
-            >
+            <span className="text-[51.55px] font-heading text-[#124258]">
               Your Reward
             </span>
             <div className="flex items-center gap-2">
@@ -66,10 +55,7 @@ const ClaimReward = React.forwardRef<HTMLDivElement, ClaimRewardProps>(
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span
-                className="text-[51.55px] font-normal text-[#0E3347]"
-                style={{ fontFamily: "Bakbak One, Arial, sans-serif" }}
-              >
+              <span className="text-[51.55px] font-heading text-[#0E3347]">
                 {winner.name}
               </span>
             </div>
@@ -95,8 +81,7 @@ const ClaimReward = React.forwardRef<HTMLDivElement, ClaimRewardProps>(
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Full name"
-                className="w-full bg-transparent border-none outline-none text-[51.55px] font-semibold text-[#154F6A] placeholder:text-[#154F6A]"
-                style={{ fontFamily: "var(--font-open-sans)" }}
+                className="w-full bg-transparent border-none outline-none text-[51.55px] font-body-semibold text-[#154F6A] placeholder:text-[#154F6A]"
                 required
               />
             </div>
@@ -116,8 +101,7 @@ const ClaimReward = React.forwardRef<HTMLDivElement, ClaimRewardProps>(
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Phone Number"
-                className="w-full bg-transparent border-none outline-none text-[51.55px] font-semibold text-[#154F6A] placeholder:text-[#154F6A]"
-                style={{ fontFamily: "var(--font-open-sans)" }}
+                className="w-full bg-transparent border-none outline-none text-[51.55px] font-body-semibold text-[#154F6A] placeholder:text-[#154F6A]"
                 required
               />
             </div>
@@ -137,8 +121,7 @@ const ClaimReward = React.forwardRef<HTMLDivElement, ClaimRewardProps>(
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email Address"
-                className="w-full bg-transparent border-none outline-none text-[51.55px] font-semibold text-[#154F6A] placeholder:text-[#154F6A]"
-                style={{ fontFamily: "var(--font-open-sans)" }}
+                className="w-full bg-transparent border-none outline-none text-[51.55px] font-body-semibold text-[#154F6A] placeholder:text-[#154F6A]"
                 required
               />
             </div>
@@ -147,9 +130,8 @@ const ClaimReward = React.forwardRef<HTMLDivElement, ClaimRewardProps>(
           {/* Get My Voucher Button */}
           <button
             type="submit"
-            className="w-full h-[200px] rounded-[110px] text-white text-2xl md:text-4xl lg:text-[77.86px] font-normal leading-[1.4] hover:opacity-90"
+            className="w-full h-[200px] rounded-[110px] text-white text-2xl md:text-4xl lg:text-[77.86px] font-heading leading-[1.4] hover:opacity-90"
             style={{
-              fontFamily: "Bakbak One, Arial, sans-serif",
               background: "#FF9442",
             }}
           >

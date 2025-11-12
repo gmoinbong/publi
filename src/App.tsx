@@ -60,7 +60,7 @@ function App() {
   const [showYouWon, setShowYouWon] = useState(false);
   const [showYouLost, setShowYouLost] = useState(false);
   const [showClaimReward, setShowClaimReward] = useState(false);
-  const [winner, setWinner] = useState<typeof sponsors[0] | null>(null);
+  const [winner, setWinner] = useState<(typeof sponsors)[0] | null>(null);
   const slotMachineRef = useRef<{ startSpin: () => void }>(null);
 
   const handleSpin = () => {
@@ -69,7 +69,10 @@ function App() {
     setShowYouLost(false);
   };
 
-  const handleComplete = (result: { winner: typeof sponsors[0] | null; isWin: boolean }) => {
+  const handleComplete = (result: {
+    winner: (typeof sponsors)[0] | null;
+    isWin: boolean;
+  }) => {
     if (result.isWin && result.winner) {
       setWinner(result.winner);
       setTimeout(() => {
@@ -96,7 +99,11 @@ function App() {
     setShowClaimReward(true);
   };
 
-  const handleClaimSubmit = (data: { fullName: string; phone: string; email: string }) => {
+  const handleClaimSubmit = (data: {
+    fullName: string;
+    phone: string;
+    email: string;
+  }) => {
     console.log("Claim data:", data);
     setShowClaimReward(false);
     setWinner(null);
@@ -119,15 +126,15 @@ function App() {
 
   if (showClaimReward && winner) {
     return (
-      <main 
+      <main
         className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
         style={{
-          background: '#F6F8FB',
+          background: "#F6F8FB",
         }}
       >
-        <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
-          <ClaimReward 
-            winner={winner} 
+        <div className="w-full max-w-[1080px] flex flex-col items-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+          <ClaimReward
+            winner={winner}
             onSubmit={handleClaimSubmit}
             onBack={handleBackFromClaim}
           />
@@ -138,15 +145,16 @@ function App() {
 
   if (showYouWon && winner) {
     return (
-      <main 
+      <main
         className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
         style={{
-          background: 'linear-gradient(136deg, rgba(246, 248, 251, 1) 12%, rgba(255, 207, 178, 1) 100%)',
+          background:
+            "linear-gradient(136deg, rgba(246, 248, 251, 1) 12%, rgba(255, 207, 178, 1) 100%)",
         }}
       >
-        <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
-          <YouWon 
-            winner={winner} 
+        <div className="w-full max-w-[1080px] flex flex-col items-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+          <YouWon
+            winner={winner}
             onClaim={handleClaim}
             onSpinAgain={handleSpinAgain}
             brandLink="https://example.com"
@@ -158,13 +166,14 @@ function App() {
 
   if (showYouLost) {
     return (
-      <main 
+      <main
         className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
         style={{
-          background: 'linear-gradient(136deg, rgba(246, 248, 251, 1) 19%, rgba(255, 207, 178, 1) 100%)',
+          background:
+            "linear-gradient(136deg, rgba(246, 248, 251, 1) 19%, rgba(255, 207, 178, 1) 100%)",
         }}
       >
-        <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
+        <div className="w-full max-w-[1080px] flex flex-col items-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
           <YouLost onTryAgain={handleSpinAgain} />
         </div>
       </main>
@@ -173,13 +182,14 @@ function App() {
 
   if (showSlotMachine) {
     return (
-      <main 
-        className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
+      <main
+        className="min-h-screen w-full flex flex-col items-center justify-center overflow-x-hidden"
         style={{
-          background: 'linear-gradient(137deg, rgba(246, 248, 251, 1) 7%, rgba(255, 207, 178, 1) 100%)',
+          background:
+            "linear-gradient(137deg, rgba(246, 248, 251, 1) 7%, rgba(255, 207, 178, 1) 100%)",
         }}
       >
-        <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
+        <div className="w-full max-w-[1080px] flex flex-col items-center justify-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
           <SlotMachine
             sponsors={sponsors}
             onComplete={handleComplete}
@@ -193,28 +203,30 @@ function App() {
 
   return (
     <QueryProvider>
-      <main 
+      <main
         className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
         style={{
-          background: 'linear-gradient(133deg, rgba(246, 248, 251, 1) 0%, rgba(255, 207, 178, 1) 100%)',
+          background:
+            "linear-gradient(133deg, rgba(246, 248, 251, 1) 0%, rgba(255, 207, 178, 1) 100%)",
         }}
       >
-        <div className="w-full max-w-[1080px] flex flex-col items-center px-4 py-8">
+        <div className="w-full max-w-[1080px] flex flex-col items-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
           {/* White Container */}
-          <div className="relative w-full bg-white rounded-[41px] p-6 md:p-8 mb-8" style={{ boxShadow: '0px 4px 33.10px 0px rgba(0, 0, 0, 0.25)' }}>
+          <h1 className="text-4xl  font-heading text-[#163446] leading-[1.4] text-left mb-3 sm:mb-4">
+            READY TO <span className=" text-[#44D2FD]">WIN?</span>
+          </h1>
+          <p className="text-xl font-body-semibold w-[80%] text-[#163446] text-center leading-[1.362] mb-4 sm:mb-6 md:mb-8 px-2">
+            Spin the wheel and <span className="text-black font-bold ">win rewards</span>{" "}
+            from our sponsors
+          </p>
+          <div
+            className="relative w-full bg-white rounded-2xl sm:rounded-3xl md:rounded-[41px] p-4 sm:p-5 md:p-6 lg:p-8 mb-4 sm:mb-6 md:mb-8"
+            style={{ boxShadow: "0px 4px 33.10px 0px rgba(0, 0, 0, 0.25)" }}
+          >
             {/* Header */}
-            <h1 
-              className="text-4xl md:text-6xl lg:text-[117.62px] font-normal text-[#163446] leading-[1.4] text-left mb-4" 
-              style={{ fontFamily: 'var(--font-bakbak-one)' }}
-            >
-              READY TO WIN?
-            </h1>
-            <p className="text-lg md:text-3xl lg:text-[55.81px] font-semibold text-[#163446] text-center leading-[1.362] mb-8 font-[var(--font-open-sans)]">
-              Spin the wheel and win rewards from our sponsors
-            </p>
 
-            {/* Sponsor Cards Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[1000px] w-full mx-auto">
+            {/* Sponsor Cards Grid - 4 columns in a row */}
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3 xl:gap-4 max-w-[1000px] w-full mx-auto">
               {sponsors.map((sponsor, index) => (
                 <RewardCard
                   key={index}
@@ -222,32 +234,32 @@ function App() {
                   reward={sponsor.reward}
                   logoUrl={sponsor.logo}
                   logoAlt={`${sponsor.name} logo`}
-                  className="w-full max-w-[236.67px] mx-auto"
+                  className="w-full"
                 />
               ))}
             </div>
           </div>
 
           {/* Countdown Section */}
-          <div className="flex flex-col items-center mb-8">
-            <p className="text-xl md:text-2xl lg:text-[38px] font-semibold text-black text-center leading-[1.362] mb-6 font-[var(--font-open-sans)]">
-              Or wait for the countdown
-            </p>
+          <div className="flex flex-col items-center mb-4 sm:mb-6 md:mb-8 w-full px-2">
             <CountdownTimer seconds={seconds} />
           </div>
 
           {/* Spin Now Button */}
           <Button
             onClick={handleSpin}
-            className="w-full max-w-[779px] h-[200px] rounded-[110px] text-white text-2xl md:text-4xl lg:text-[77.86px] font-normal leading-[1.4] hover:opacity-90"
-            style={{ 
-              fontFamily: 'var(--font-bakbak-one)',
-              background: 'linear-gradient(90deg, rgba(6, 144, 225, 1) 0%, rgba(56, 207, 253, 1) 100%)'
+            className="w-full max-w-[779px] h-16 sm:h-20 md:h-24 lg:h-32 xl:h-[200px] rounded-full sm:rounded-[60px] md:rounded-[80px] lg:rounded-[110px] text-white text-base sm:text-lg md:text-2xl lg:text-4xl xl:text-[77.86px] font-heading leading-[1.4] hover:opacity-90 px-4"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(6, 144, 225, 1) 0%, rgba(56, 207, 253, 1) 100%)",
             }}
             size="lg"
           >
             SPIN NOW
           </Button>
+          <p className="pt-4 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-[38px] font-body-semibold text-black text-center leading-[1.362] mb-3 sm:mb-4 md:mb-6">
+            Or wait for the countdown
+          </p>
         </div>
       </main>
     </QueryProvider>
@@ -255,4 +267,3 @@ function App() {
 }
 
 export default App;
-

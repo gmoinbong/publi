@@ -16,10 +16,7 @@ const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
         {...props}
       >
         {/* Animation icon placeholder */}
-        <div
-          className="mb-6 text-[81px] font-normal text-[#00820B] text-center"
-          style={{ fontFamily: "Bakbak One, Arial, sans-serif" }}
-        >
+        <div className="mb-6 text-[81px] font-heading text-[#00820B] text-center">
           Animation icon here
         </div>
 
@@ -33,15 +30,12 @@ const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
           }}
         >
           {/* Try again tomorrow! Title */}
-          <h1
-            className="text-3xl md:text-5xl lg:text-[101px] font-normal text-white leading-[1.14] text-center mb-8"
-            style={{ fontFamily: "Bakbak One, Arial, sans-serif" }}
-          >
+          <h1 className="text-3xl md:text-5xl lg:text-[101px] font-heading text-white leading-[1.14] text-center mb-8">
             Try again tomorrow!
           </h1>
 
           {/* Better luck text */}
-          <p className="text-lg md:text-2xl lg:text-[51.55px] font-semibold text-white text-center leading-[1.362] mb-8 font-[var(--font-open-sans)]">
+          <p className="text-lg md:text-2xl lg:text-[51.55px] font-body-semibold text-white text-center leading-[1.362] mb-8">
             Better luck next time. Come back tomorrow for another spin
           </p>
         </div>
@@ -49,9 +43,8 @@ const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
         {/* Play Again 24h Button */}
         <button
           onClick={onTryAgain}
-          className="relative z-10 w-full max-w-[784px] h-[200px] rounded-[110px] text-white text-2xl md:text-4xl lg:text-[69px] font-normal leading-[1.4] hover:opacity-90"
+          className="relative z-10 w-full max-w-[784px] h-[200px] rounded-[110px] text-white text-2xl md:text-4xl lg:text-[69px] font-heading leading-[1.4] hover:opacity-90"
           style={{
-            fontFamily: "Bakbak One, Arial, sans-serif",
             background: "#FF9442",
           }}
         >
