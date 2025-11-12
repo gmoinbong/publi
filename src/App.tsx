@@ -146,13 +146,13 @@ function App() {
   if (showYouWon && winner) {
     return (
       <main
-        className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
+        className="min-h-screen w-full flex flex-col items-center justify-center overflow-x-hidden"
         style={{
           background:
             "linear-gradient(136deg, rgba(246, 248, 251, 1) 12%, rgba(255, 207, 178, 1) 100%)",
         }}
       >
-        <div className="w-full max-w-[1080px] flex flex-col items-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+        <div className="w-full max-w-[1080px] flex flex-col items-center justify-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
           <YouWon
             winner={winner}
             onClaim={handleClaim}

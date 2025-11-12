@@ -27,9 +27,7 @@ export const PrizeCard = React.forwardRef<HTMLDivElement, PrizeCardProps>(
         {...props}
       >
         <div className="w-full h-full flex flex-col items-center justify-center p-1.5 sm:p-2.5 md:p-3 lg:p-4">
-          <div className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-xl 2xl:text-[30.42px] font-body-bold text-[#163446] uppercase mb-1 sm:mb-1.5 md:mb-2 lg:mb-3 xl:mb-4 text-center leading-tight">
-            Gift Card
-          </div>
+
           <div className="relative w-[80px] h-[30px] sm:w-[110px] sm:h-[40px] md:w-[140px] md:h-[50px] lg:w-[180px] lg:h-[65px] xl:w-[220px] xl:h-[80px] 2xl:w-[280px] 2xl:h-[100px] mb-2 sm:mb-2.5 md:mb-3 lg:mb-4 xl:mb-5">
             <img
               src={sponsor.logo}

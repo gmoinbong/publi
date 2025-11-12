@@ -189,9 +189,7 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
                       key={index}
                       className="w-full h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] xl:h-[450px] flex flex-col items-center justify-center p-3 sm:p-4"
                     >
-                      <div className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-[30.42px] font-body-bold text-[#163446] uppercase mb-2 sm:mb-3 md:mb-4 text-center">
-                        Gift Card
-                      </div>
+             
                       <div className="relative w-[120px] h-[40px] sm:w-[150px] sm:h-[50px] md:w-[180px] md:h-[55px] lg:w-[200px] lg:h-[60px] xl:w-[214.52px] xl:h-[67.22px] mb-2 sm:mb-3 md:mb-4">
                         <img
                           src={sponsor.logo}
@@ -208,7 +206,7 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
 
           {/* Progress Indicator - Below slots */}
         </div>
-        <div className="flex justify-center items-center w-full">
+        <div className="pt-10 flex justify-center items-center w-full">
           <div className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[180px] md:h-[180px] lg:w-[220px] lg:h-[220px] xl:w-[303px] xl:h-[303px]">
             <div
               className="absolute inset-0 rounded-full"

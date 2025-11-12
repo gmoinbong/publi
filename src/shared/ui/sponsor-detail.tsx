@@ -66,9 +66,6 @@ export const SponsorDetail = React.forwardRef<HTMLDivElement, SponsorDetailProps
                 border: "4px solid #111D21",
               }}
             >
-              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-body-bold text-[#163446] uppercase mb-6 sm:mb-8 text-center">
-                Gift Card
-              </div>
               <div className="relative w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] h-[80px] sm:h-[100px] md:h-[120px] mb-6 sm:mb-8">
                 <img
                   src={sponsor.logo}
