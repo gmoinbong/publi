@@ -29,14 +29,22 @@ export const SuccessConfettiAnimation = React.forwardRef<
   const hasCompletedRef = React.useRef(false);
 
   React.useEffect(() => {
-    fetch("/animations/success confetti.json")
-      .then((res) => res.json())
+    // Encode space in filename
+    fetch("./animations/success confetti.json")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to load: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data && (data.v || data.layers)) {
           setConfettiData(data);
         }
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.warn("Failed to load animation:", err);
+      });
   }, []);
 
   // Auto complete after 3 seconds

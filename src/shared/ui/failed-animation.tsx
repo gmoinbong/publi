@@ -30,14 +30,21 @@ export const FailedAnimation = React.forwardRef<
   const hasCompletedRef = React.useRef(false);
 
   React.useEffect(() => {
-    fetch("/animations/Failed.json")
-      .then((res) => res.json())
+    fetch("./animations/Failed.json")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to load: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data && (data.v || data.layers)) {
           setFailedData(data);
         }
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.warn("Failed to load animation:", err);
+      });
   }, []);
 
   // Auto complete after 3 seconds

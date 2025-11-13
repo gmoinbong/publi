@@ -32,10 +32,16 @@
   RewriteEngine On
   RewriteBase /
   
-  # Don't rewrite if file exists (this should prevent rewriting existing JS/CSS files)
+  # Don't rewrite if file exists (this should prevent rewriting existing JS/CSS/JSON files)
   RewriteCond %{REQUEST_FILENAME} !-f
   # Don't rewrite if directory exists
   RewriteCond %{REQUEST_FILENAME} !-d
+  # Don't rewrite assets folder (JS, CSS files)
+  RewriteCond %{REQUEST_URI} !^/assets/
+  # Don't rewrite animations folder (JSON files)
+  RewriteCond %{REQUEST_URI} !^/animations/
+  # Don't rewrite images folder
+  RewriteCond %{REQUEST_URI} !^/images/
   # Don't rewrite if it's a file with extension (extra safety)
   RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]+$
   

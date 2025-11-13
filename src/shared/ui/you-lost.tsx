@@ -26,14 +26,21 @@ const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
     const [sadEmojiData, setSadEmojiData] = React.useState<LottieAnimationData | null>(null);
 
     React.useEffect(() => {
-      fetch("/animations/Sad Emoji.json")
-        .then((res) => res.json())
+      fetch("./animations/Sad Emoji.json")
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Failed to load: ${res.status}`);
+          }
+          return res.json();
+        })
         .then((data) => {
           if (data && (data.v || data.layers)) {
             setSadEmojiData(data);
           }
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.warn("Failed to load animation:", err);
+        });
     }, []);
 
     return (

@@ -22,7 +22,8 @@ export const ConfettiBackground = () => {
     const loadAnimation = async () => {
       // Try local file first, then fallback to CDN
       const confettiUrls = [
-        "/animations/success confetti.json", // Local file
+        "./animations/success confetti.json", // Local file with relative path
+        "/animations/success confetti.json", // Fallback to absolute path
         "/animations/success-confetti.json", // Alternative name
         "https://lottie.host/f5PdexvrBK.json",
         "https://lottie.host/embed/f5PdexvrBK.json",

@@ -31,7 +31,8 @@ export const TrophyAnimation = React.forwardRef<
     const loadAnimation = async () => {
       // Try local file first, then fallback to CDN
       const trophyUrls = [
-        "/animations/Trophy.json", // Local file
+        "./animations/Trophy.json", // Local file with relative path
+        "/animations/Trophy.json", // Fallback to absolute path
         "https://lottie.host/yEGPe40FVr.json",
         "https://lottie.host/embed/yEGPe40FVr.json",
         "https://assets5.lottiefiles.com/packages/lf20_yEGPe40FVr.json",
