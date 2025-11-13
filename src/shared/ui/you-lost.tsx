@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
-
+import Lottie from "lottie-react";
+import sadEmojiAnimation from "../../../public/animations/Sad Emoji.json";
 export interface YouLostProps {
   onTryAgain?: () => void;
   className?: string;
@@ -11,13 +12,27 @@ const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
     return (
       <div
         ref={ref}
-        className={cn("relative w-full flex flex-col items-center justify-center min-h-full", className)}
+        className={cn(
+          "relative w-full flex flex-col items-center justify-center min-h-full",
+          className
+        )}
         {...props}
       >
+        <Lottie
+          animationData={sadEmojiAnimation}
+          loop={true}
+          autoplay={true}
+          size={100}
+          style={{
+            width: "50%",
+            height: "50%",
+          }}
+        />
         <div
           className="relative z-10 w-full max-w-[1003px] rounded-[29px] p-6 md:p-8 mb-8"
           style={{
-            background: "linear-gradient(137deg, rgba(11, 141, 217, 1) 4%, rgba(45, 195, 248, 1) 100%)",
+            background:
+              "linear-gradient(137deg, rgba(11, 141, 217, 1) 4%, rgba(45, 195, 248, 1) 100%)",
             boxShadow: "0px 4.24px 35.10px 0px rgba(0, 0, 0, 0.25)",
           }}
         >

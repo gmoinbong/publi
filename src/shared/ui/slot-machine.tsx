@@ -54,8 +54,9 @@ const SlotMachine = React.forwardRef<SlotMachineRef, SlotMachineProps>(
 
       setCurrentBrand(sponsors[winners[1]].name);
 
-      const winResult = true;
-      // winners.every((w) => w === winners[0]);
+      const winResult = 
+      // true;
+      winners.every((w) => w === winners[0]);
       setIsWin(winResult);
 
       const SPIN_DURATION = 3000;

@@ -27,6 +27,7 @@ export const SuccessConfettiAnimation = React.forwardRef<
 >(({ className, onComplete, ...props }, ref) => {
   const [confettiData, setConfettiData] =
     React.useState<LottieAnimationData | null>(null);
+  const hasCompletedRef = React.useRef(false);
 
   React.useEffect(() => {
     fetch("/animations/success confetti.json")
@@ -38,6 +39,27 @@ export const SuccessConfettiAnimation = React.forwardRef<
       })
       .catch(() => {});
   }, []);
+
+  // Auto complete after 3 seconds
+  React.useEffect(() => {
+    if (confettiData && onComplete) {
+      const timeout = setTimeout(() => {
+        if (!hasCompletedRef.current) {
+          hasCompletedRef.current = true;
+          onComplete();
+        }
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [confettiData, onComplete]);
+
+  const handleComplete = React.useCallback(() => {
+    if (!hasCompletedRef.current && onComplete) {
+      hasCompletedRef.current = true;
+      onComplete();
+    }
+  }, [onComplete]);
 
   if (!confettiData) {
     return null;
@@ -57,7 +79,7 @@ export const SuccessConfettiAnimation = React.forwardRef<
         animationData={confettiData}
         loop={false}
         autoplay={true}
-        onComplete={onComplete}
+        onComplete={handleComplete}
         style={{
           width: "100%",
           height: "100%",
