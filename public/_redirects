@@ -1,0 +1,6 @@
+# Netlify redirects for SPA
+/assets/*  /assets/:splat  200
+/images/*  /images/:splat  200
+/animations/*  /animations/:splat  200
+/*    /index.html   200
+

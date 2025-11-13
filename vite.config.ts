@@ -5,7 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // Use relative paths for assets
+  base: '/', // Use absolute paths for better compatibility
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -26,7 +26,18 @@ export default defineConfig({
         assetFileNames: 'assets/[name]-[hash][extname]',
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
+        manualChunks: undefined, // Prevent code splitting issues
       },
+    },
+    commonjsOptions: {
+      include: [/node_modules/],
+    },
+    // Ensure proper MIME types
+    assetsInlineLimit: 0,
+  },
+  server: {
+    fs: {
+      strict: false,
     },
   },
 });
