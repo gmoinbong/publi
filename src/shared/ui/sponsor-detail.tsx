@@ -1,7 +1,22 @@
 import * as React from "react";
+import Lottie from "lottie-react";
 import { cn } from "../lib/utils";
 import type { Sponsor } from "../types";
 import { WinButtons } from "./win-buttons";
+
+type LottieAnimationData = {
+  v?: string;
+  fr?: number;
+  ip?: number;
+  op?: number;
+  w?: number;
+  h?: number;
+  nm?: string;
+  ddd?: number;
+  assets?: unknown[];
+  layers?: unknown[];
+  [key: string]: unknown;
+};
 
 export interface SponsorDetailProps {
   sponsor: Sponsor;
@@ -11,82 +26,127 @@ export interface SponsorDetailProps {
   className?: string;
 }
 
-export const SponsorDetail = React.forwardRef<HTMLDivElement, SponsorDetailProps>(
-  ({ sponsor, onClose, onClaim, onSpinAgain, className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "relative w-full flex flex-col items-center min-h-screen py-8 px-4",
-          className
-        )}
-        style={{
-          background: "linear-gradient(133deg, rgba(246, 248, 251, 1) 0%, rgba(255, 207, 178, 1) 100%)",
-        }}
-        {...props}
-      >
-        {/* Close button */}
-        {onClose && (
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center shadow-lg hover:opacity-80 transition-opacity"
-            aria-label="Close"
-          >
-            <span className="text-2xl sm:text-3xl">×</span>
-          </button>
-        )}
+export const SponsorDetail = React.forwardRef<
+  HTMLDivElement,
+  SponsorDetailProps
+>(({ sponsor, onClose, onClaim, onSpinAgain, className, ...props }, ref) => {
+  const [giftAnimationData, setGiftAnimationData] =
+    React.useState<LottieAnimationData | null>(null);
 
-        {/* Main Content Container */}
-        <div className="w-full max-w-[1080px] flex flex-col items-center">
-          {/* Sponsor Logo - Large */}
-          <div className="relative w-full max-w-[400px] sm:max-w-[500px] md:max-w-[600px] h-[120px] sm:h-[150px] md:h-[180px] lg:h-[220px] mb-6 sm:mb-8 md:mb-10">
+  React.useEffect(() => {
+    const loadAnimation = async () => {
+      // Try local file first, then fallback to CDN
+      const urls = [
+        "/animations/Gift box.json", // Local file
+        "/animations/gift-box.json", // Alternative name
+        "https://lottie.host/embed/J1isYcIiIG.json",
+        "https://lottie.host/J1isYcIiIG.json",
+        "https://assets5.lottiefiles.com/packages/lf20_J1isYcIiIG.json",
+      ];
+
+      for (const url of urls) {
+        try {
+          const response = await fetch(url);
+          if (response.ok) {
+            const data = await response.json();
+            // Verify it's valid Lottie data
+            if (data && (data.v || data.layers)) {
+              setGiftAnimationData(data);
+              return;
+            }
+          }
+        } catch (error) {
+          console.warn(`Failed to load animation from ${url}:`, error);
+          continue;
+        }
+      }
+    };
+
+    loadAnimation();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "relative w-full flex flex-col items-center justify-center min-h-screen py-8 px-4",
+        className
+      )}
+      style={{
+        background:
+          "linear-gradient(136deg, rgba(246, 248, 251, 1) 12%, rgba(255, 207, 178, 1) 100%)",
+      }}
+      {...props}
+    >
+      {/* Close button */}
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center shadow-lg hover:opacity-80 transition-opacity"
+          aria-label="Close"
+        >
+          <span className="text-2xl sm:text-3xl">×</span>
+        </button>
+      )}
+
+      {/* White Container - according to Figma */}
+      <div
+        className="relative w-full max-w-[975px] mx-auto rounded-[41px] p-6 sm:p-8 md:p-10 lg:p-12"
+        style={{
+          background: "#FFFFFF",
+          boxShadow: "0px 4px 33.10px 0px rgba(0, 0, 0, 0.25)",
+        }}
+      >
+        {/* YOU WON! Title - according to Figma */}
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[117.62px] font-heading text-[#0A5980] leading-[1.4] text-center mb-6 sm:mb-8 md:mb-10">
+          YOU WON!
+        </h1>
+
+        {/* Congratulations Text - according to Figma */}
+        <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[55.81px] font-body-semibold text-black text-center leading-[1.362] mb-8 sm:mb-10 md:mb-12 px-4">
+          Congratulations - You&apos;ve{" "}
+          <span className="font-bold">
+            won a Gift Card of {sponsor.name} {sponsor.reward}
+          </span>
+        </p>
+
+        {/* Sponsor Logo above gift */}
+        <div className="flex items-center justify-center mb-4 sm:mb-6 w-full">
+          <div className="relative w-[200px] h-[60px] sm:w-[250px] sm:h-[75px] md:w-[300px] md:h-[90px] lg:w-[368px] lg:h-[115px]">
             <img
               src={sponsor.logo}
               alt={sponsor.name}
               className="w-full h-full object-contain"
             />
           </div>
+        </div>
 
-          {/* Sponsor Name */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-body-bold text-[#163446] text-center mb-4 sm:mb-6">
-            {sponsor.name}
-          </h1>
-
-          {/* Reward Text */}
-          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-body-semibold text-[#163446] text-center mb-8 sm:mb-10 md:mb-12">
-            {sponsor.reward}
-          </p>
-
-          {/* Prize Card Display */}
-          <div className="w-full max-w-[400px] sm:max-w-[500px] md:max-w-[600px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl mb-8 sm:mb-10 md:mb-12">
-            <div
-              className="w-full h-[300px] sm:h-[400px] md:h-[500px] flex flex-col items-center justify-center p-6 sm:p-8 md:p-10"
-              style={{
-                background: "linear-gradient(180deg, rgba(63, 210, 161, 1) 0%, rgba(68, 209, 248, 1) 100%)",
-                border: "4px solid #111D21",
-              }}
-            >
-              <div className="relative w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] h-[80px] sm:h-[100px] md:h-[120px] mb-6 sm:mb-8">
-                <img
-                  src={sponsor.logo}
-                  alt={sponsor.name}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div className="relative w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] md:w-[140px] md:h-[140px]">
-                <div className="w-full h-full bg-white rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-4xl sm:text-5xl md:text-6xl">🎁</span>
-                </div>
+        {/* Gift Animation - Lottie */}
+        <div className="flex items-center justify-center w-full">
+          {giftAnimationData ? (
+            <div className="w-full max-w-[655px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[636px] flex items-center justify-center">
+              <Lottie
+                animationData={giftAnimationData}
+                loop={true}
+                autoplay={true}
+                className="w-full h-full"
+              />
+            </div>
+          ) : (
+            <div className="w-full max-w-[655px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[636px] flex items-center justify-center">
+              <div className="w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-white rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-6xl sm:text-8xl">🎁</span>
               </div>
             </div>
-          </div>
-
-          {/* Win Buttons */}
-          <WinButtons onClaim={onClaim} onSpinAgain={onSpinAgain} />
+          )}
         </div>
       </div>
-    );
-  }
-);
-SponsorDetail.displayName = "SponsorDetail";
 
+      {/* Win Buttons - outside container */}
+      <div className="w-full max-w-[720px] mx-auto mt-6 sm:mt-8 md:mt-10">
+        <WinButtons onClaim={onClaim} onSpinAgain={onSpinAgain} />
+      </div>
+    </div>
+  );
+});
+SponsorDetail.displayName = "SponsorDetail";

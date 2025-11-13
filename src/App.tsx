@@ -127,12 +127,12 @@ function App() {
   if (showClaimReward && winner) {
     return (
       <main
-        className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
+        className="min-h-screen w-full flex flex-col items-center justify-center overflow-x-hidden"
         style={{
           background: "#F6F8FB",
         }}
       >
-        <div className="w-full max-w-[1080px] flex flex-col items-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+        <div className="w-full flex flex-col items-center">
           <ClaimReward
             winner={winner}
             onSubmit={handleClaimSubmit}

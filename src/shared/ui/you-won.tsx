@@ -47,7 +47,7 @@ const YouWon = React.forwardRef<HTMLDivElement, YouWonProps>(
         {...props}
       >
         {/* Confetti Animation Background */}
-        <ConfettiBackground />
+        {/* <ConfettiBackground /> */}
 
         {/* Brand Link at top */}
         <div className="pb-4 flex flex-col items-center">
@@ -69,9 +69,7 @@ const YouWon = React.forwardRef<HTMLDivElement, YouWonProps>(
           }}
         >
           {/* Trophy Animation */}
-          <div className="flex flex-col items-center mb-4 sm:mb-6 md:mb-8">
-            <TrophyAnimation className="mb-3 sm:mb-4 md:mb-6" />
-          </div>
+          <div className="flex flex-col items-center mb-4 sm:mb-6 md:mb-8"></div>
 
           {/* Prize Cards - Show 3 green cards in a row when winning */}
           <div className="flex flex-row gap-1 sm:gap-1.5 md:gap-2 lg:gap-2.5 xl:gap-3 justify-center items-start mb-4 sm:mb-6 md:mb-8 w-full px-1 sm:px-2">

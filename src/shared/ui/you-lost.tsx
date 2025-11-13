@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
+import { SadEmojiAnimation } from "./sad-emoji-animation";
 
 export interface YouLostProps {
   onTryAgain?: () => void;
@@ -15,9 +16,9 @@ const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
         className={cn("relative w-full flex flex-col items-center", className)}
         {...props}
       >
-        {/* Animation icon placeholder */}
-        <div className="mb-6 text-[81px] font-heading text-[#00820B] text-center">
-          Animation icon here
+        {/* Sad Emoji Animation */}
+        <div className="mb-6 flex items-center justify-center">
+          <SadEmojiAnimation />
         </div>
 
         {/* Main Container */}

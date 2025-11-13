@@ -35,6 +35,8 @@ export type { BrandLinkAnimationProps } from './ui/brand-link-animation';
 export { ConfettiBackground } from './ui/confetti-background';
 export { TrophyAnimation } from './ui/trophy-animation';
 export type { TrophyAnimationProps } from './ui/trophy-animation';
+export { SadEmojiAnimation } from './ui/sad-emoji-animation';
+export type { SadEmojiAnimationProps } from './ui/sad-emoji-animation';
 export { SponsorDetail } from './ui/sponsor-detail';
 export type { SponsorDetailProps } from './ui/sponsor-detail';
 

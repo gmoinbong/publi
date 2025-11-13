@@ -20,7 +20,10 @@ export const ConfettiBackground = () => {
 
   React.useEffect(() => {
     const loadAnimation = async () => {
+      // Try local file first, then fallback to CDN
       const confettiUrls = [
+        "/animations/success confetti.json", // Local file
+        "/animations/success-confetti.json", // Alternative name
         "https://lottie.host/f5PdexvrBK.json",
         "https://lottie.host/embed/f5PdexvrBK.json",
         "https://assets5.lottiefiles.com/packages/lf20_f5PdexvrBK.json",
@@ -31,10 +34,14 @@ export const ConfettiBackground = () => {
           const response = await fetch(url);
           if (response.ok) {
             const data = await response.json();
-            setConfettiData(data);
-            break;
+            // Verify it's valid Lottie data
+            if (data && (data.v || data.layers)) {
+              setConfettiData(data);
+              return;
+            }
           }
-        } catch {
+        } catch (error) {
+          console.warn(`Failed to load animation from ${url}:`, error);
           continue;
         }
       }
