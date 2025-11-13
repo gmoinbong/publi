@@ -30,7 +30,7 @@ export const FailedAnimation = React.forwardRef<
   const hasCompletedRef = React.useRef(false);
 
   React.useEffect(() => {
-    fetch("./animations/Failed.json")
+    fetch("/animations/Failed.json")
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Failed to load: ${res.status}`);

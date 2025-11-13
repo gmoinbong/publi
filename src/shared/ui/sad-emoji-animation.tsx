@@ -28,8 +28,7 @@ export const SadEmojiAnimation = React.forwardRef<HTMLDivElement, SadEmojiAnimat
       const loadAnimation = async () => {
         // Try local file first, then fallback to CDN
         const sadEmojiUrls = [
-          "./animations/Sad Emoji.json", // Local file with relative path
-          "/animations/Sad Emoji.json", // Fallback to absolute path
+          "/animations/Sad Emoji.json", // Local file
           "/animations/sad-emoji.json", // Alternative name
         ];
 

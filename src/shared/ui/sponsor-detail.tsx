@@ -35,8 +35,7 @@ export const SponsorDetail = React.forwardRef<
   const lottieRef = React.useRef<any>(null);
 
   React.useEffect(() => {
-    // Encode space in filename
-    fetch("./animations/Gift box.json")
+    fetch("/animations/Gift box.json")
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Failed to load: ${res.status}`);

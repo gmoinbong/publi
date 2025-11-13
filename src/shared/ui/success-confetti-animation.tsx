@@ -29,8 +29,7 @@ export const SuccessConfettiAnimation = React.forwardRef<
   const hasCompletedRef = React.useRef(false);
 
   React.useEffect(() => {
-    // Encode space in filename
-    fetch("./animations/success confetti.json")
+    fetch("/animations/success confetti.json")
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Failed to load: ${res.status}`);
