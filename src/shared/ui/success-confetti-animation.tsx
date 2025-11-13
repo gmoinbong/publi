@@ -1,6 +1,7 @@
 import * as React from "react";
 import Lottie from "lottie-react";
 import { cn } from "../lib/utils";
+import confettiAnimationData from "../../../public/animations/success confetti.json";
 
 type LottieAnimationData = {
   v?: string;
@@ -25,30 +26,11 @@ export const SuccessConfettiAnimation = React.forwardRef<
   HTMLDivElement,
   SuccessConfettiAnimationProps
 >(({ className, onComplete, ...props }, ref) => {
-  const [confettiData, setConfettiData] = React.useState<LottieAnimationData | null>(null);
   const hasCompletedRef = React.useRef(false);
-
-  React.useEffect(() => {
-    fetch("/animations/success confetti.json")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Failed to load: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (data && (data.v || data.layers)) {
-          setConfettiData(data);
-        }
-      })
-      .catch((err) => {
-        console.warn("Failed to load animation:", err);
-      });
-  }, []);
 
   // Auto complete after 3 seconds
   React.useEffect(() => {
-    if (confettiData && onComplete) {
+    if (onComplete) {
       const timeout = setTimeout(() => {
         if (!hasCompletedRef.current) {
           hasCompletedRef.current = true;
@@ -58,7 +40,7 @@ export const SuccessConfettiAnimation = React.forwardRef<
 
       return () => clearTimeout(timeout);
     }
-  }, [confettiData, onComplete]);
+  }, [onComplete]);
 
   const handleComplete = React.useCallback(() => {
     if (!hasCompletedRef.current && onComplete) {
@@ -66,10 +48,6 @@ export const SuccessConfettiAnimation = React.forwardRef<
       onComplete();
     }
   }, [onComplete]);
-
-  if (!confettiData) {
-    return null;
-  }
 
   return (
     <div
@@ -82,7 +60,7 @@ export const SuccessConfettiAnimation = React.forwardRef<
     >
       <Lottie
         key="success-confetti-once"
-        animationData={confettiData}
+        animationData={confettiAnimationData}
         loop={false}
         autoplay={true}
         onComplete={handleComplete}

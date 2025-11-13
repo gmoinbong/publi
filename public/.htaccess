@@ -38,7 +38,8 @@
   # Don't rewrite files with extensions (extra safety for assets)
   RewriteCond %{REQUEST_URI} !\.(js|mjs|css|json|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot)$ [NC]
   
-  # Rewrite everything else to index.html
+  # Rewrite everything else to 
+  index.html
   RewriteRule ^ index.html [L]
 </IfModule>
 

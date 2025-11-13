@@ -1,6 +1,7 @@
 import * as React from "react";
 import Lottie from "lottie-react";
 import { cn } from "../lib/utils";
+import failedAnimationData from "../../../public/animations/Failed.json";
 
 type LottieAnimationData = {
   v?: string;
@@ -25,31 +26,11 @@ export const FailedAnimation = React.forwardRef<
   HTMLDivElement,
   FailedAnimationProps
 >(({ className, onComplete, ...props }, ref) => {
-  const [failedData, setFailedData] =
-    React.useState<LottieAnimationData | null>(null);
   const hasCompletedRef = React.useRef(false);
-
-  React.useEffect(() => {
-    fetch("/animations/Failed.json")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Failed to load: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (data && (data.v || data.layers)) {
-          setFailedData(data);
-        }
-      })
-      .catch((err) => {
-        console.warn("Failed to load animation:", err);
-      });
-  }, []);
 
   // Auto complete after 3 seconds
   React.useEffect(() => {
-    if (failedData && onComplete) {
+    if (onComplete) {
       const timeout = setTimeout(() => {
         if (!hasCompletedRef.current) {
           hasCompletedRef.current = true;
@@ -59,7 +40,7 @@ export const FailedAnimation = React.forwardRef<
 
       return () => clearTimeout(timeout);
     }
-  }, [failedData, onComplete]);
+  }, [onComplete]);
 
   const handleComplete = React.useCallback(() => {
     if (!hasCompletedRef.current && onComplete) {
@@ -67,10 +48,6 @@ export const FailedAnimation = React.forwardRef<
       onComplete();
     }
   }, [onComplete]);
-
-  if (!failedData) {
-    return null;
-  }
 
   return (
     <div
@@ -83,7 +60,7 @@ export const FailedAnimation = React.forwardRef<
     >
       <Lottie
         key="failed-once"
-        animationData={failedData}
+        animationData={failedAnimationData}
         loop={false}
         autoplay={true}
         onComplete={handleComplete}

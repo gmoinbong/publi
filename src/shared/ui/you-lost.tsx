@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
 import Lottie from "lottie-react";
+import sadEmojiAnimationData from "../../../public/animations/Sad Emoji.json";
 
 type LottieAnimationData = {
   v?: string;
@@ -23,26 +24,6 @@ export interface YouLostProps {
 
 const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
   ({ onTryAgain, className, ...props }, ref) => {
-    const [sadEmojiData, setSadEmojiData] = React.useState<LottieAnimationData | null>(null);
-
-    React.useEffect(() => {
-      fetch("/animations/Sad Emoji.json")
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error(`Failed to load: ${res.status}`);
-          }
-          return res.json();
-        })
-        .then((data) => {
-          if (data && (data.v || data.layers)) {
-            setSadEmojiData(data);
-          }
-        })
-        .catch((err) => {
-          console.warn("Failed to load animation:", err);
-        });
-    }, []);
-
     return (
       <div
         ref={ref}
@@ -52,17 +33,15 @@ const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
         )}
         {...props}
       >
-        {sadEmojiData && (
-          <Lottie
-            animationData={sadEmojiData}
-            loop={true}
-            autoplay={true}
-            style={{
-              width: "50%",
-              height: "50%",
-            }}
-          />
-        )}
+        <Lottie
+          animationData={sadEmojiAnimationData}
+          loop={true}
+          autoplay={true}
+          style={{
+            width: "50%",
+            height: "50%",
+          }}
+        />
         <div
           className="relative z-10 w-full max-w-[1003px] rounded-[29px] p-6 md:p-8 mb-8"
           style={{
