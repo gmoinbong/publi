@@ -25,8 +25,7 @@ export const SuccessConfettiAnimation = React.forwardRef<
   HTMLDivElement,
   SuccessConfettiAnimationProps
 >(({ className, onComplete, ...props }, ref) => {
-  const [confettiData, setConfettiData] =
-    React.useState<LottieAnimationData | null>(null);
+  const [confettiData, setConfettiData] = React.useState<LottieAnimationData | null>(null);
   const hasCompletedRef = React.useRef(false);
 
   React.useEffect(() => {

@@ -1,7 +1,21 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
 import Lottie from "lottie-react";
-import sadEmojiAnimation from "../../../public/animations/Sad Emoji.json";
+
+type LottieAnimationData = {
+  v?: string;
+  fr?: number;
+  ip?: number;
+  op?: number;
+  w?: number;
+  h?: number;
+  nm?: string;
+  ddd?: number;
+  assets?: unknown[];
+  layers?: unknown[];
+  [key: string]: unknown;
+};
+
 export interface YouLostProps {
   onTryAgain?: () => void;
   className?: string;
@@ -9,6 +23,19 @@ export interface YouLostProps {
 
 const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
   ({ onTryAgain, className, ...props }, ref) => {
+    const [sadEmojiData, setSadEmojiData] = React.useState<LottieAnimationData | null>(null);
+
+    React.useEffect(() => {
+      fetch("/animations/Sad Emoji.json")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && (data.v || data.layers)) {
+            setSadEmojiData(data);
+          }
+        })
+        .catch(() => {});
+    }, []);
+
     return (
       <div
         ref={ref}
@@ -18,16 +45,17 @@ const YouLost = React.forwardRef<HTMLDivElement, YouLostProps>(
         )}
         {...props}
       >
-        <Lottie
-          animationData={sadEmojiAnimation}
-          loop={true}
-          autoplay={true}
-          size={100}
-          style={{
-            width: "50%",
-            height: "50%",
-          }}
-        />
+        {sadEmojiData && (
+          <Lottie
+            animationData={sadEmojiData}
+            loop={true}
+            autoplay={true}
+            style={{
+              width: "50%",
+              height: "50%",
+            }}
+          />
+        )}
         <div
           className="relative z-10 w-full max-w-[1003px] rounded-[29px] p-6 md:p-8 mb-8"
           style={{
