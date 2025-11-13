@@ -32,38 +32,24 @@ export const SponsorDetail = React.forwardRef<
 >(({ sponsor, onClose, onClaim, onSpinAgain, className, ...props }, ref) => {
   const [giftAnimationData, setGiftAnimationData] =
     React.useState<LottieAnimationData | null>(null);
+  const lottieRef = React.useRef<any>(null);
 
   React.useEffect(() => {
-    const loadAnimation = async () => {
-      // Try local file first, then fallback to CDN
-      const urls = [
-        "/animations/Gift box.json", // Local file
-        "/animations/gift-box.json", // Alternative name
-        "https://lottie.host/embed/J1isYcIiIG.json",
-        "https://lottie.host/J1isYcIiIG.json",
-        "https://assets5.lottiefiles.com/packages/lf20_J1isYcIiIG.json",
-      ];
-
-      for (const url of urls) {
-        try {
-          const response = await fetch(url);
-          if (response.ok) {
-            const data = await response.json();
-            // Verify it's valid Lottie data
-            if (data && (data.v || data.layers)) {
-              setGiftAnimationData(data);
-              return;
-            }
-          }
-        } catch (error) {
-          console.warn(`Failed to load animation from ${url}:`, error);
-          continue;
+    fetch("/animations/Gift box.json")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && (data.v || data.layers)) {
+          setGiftAnimationData(data);
         }
-      }
-    };
-
-    loadAnimation();
+      })
+      .catch(() => {});
   }, []);
+
+  React.useEffect(() => {
+    if (lottieRef.current && lottieRef.current.setSpeed) {
+      lottieRef.current.setSpeed(0.65);
+    }
+  }, [giftAnimationData]);
 
   return (
     <div
@@ -123,22 +109,17 @@ export const SponsorDetail = React.forwardRef<
 
         {/* Gift Animation - Lottie */}
         <div className="flex items-center justify-center w-full">
-          {giftAnimationData ? (
-            <div className="w-full max-w-[655px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[636px] flex items-center justify-center">
+          <div className="w-full max-w-[655px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[636px] flex items-center justify-center">
+            {giftAnimationData && (
               <Lottie
+                lottieRef={lottieRef}
                 animationData={giftAnimationData}
-                loop={true}
+                loop={false}
                 autoplay={true}
                 className="w-full h-full"
               />
-            </div>
-          ) : (
-            <div className="w-full max-w-[655px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[636px] flex items-center justify-center">
-              <div className="w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-white rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-6xl sm:text-8xl">🎁</span>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 

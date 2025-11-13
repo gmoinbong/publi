@@ -37,6 +37,10 @@ export { TrophyAnimation } from './ui/trophy-animation';
 export type { TrophyAnimationProps } from './ui/trophy-animation';
 export { SadEmojiAnimation } from './ui/sad-emoji-animation';
 export type { SadEmojiAnimationProps } from './ui/sad-emoji-animation';
+export { FailedAnimation } from './ui/failed-animation';
+export type { FailedAnimationProps } from './ui/failed-animation';
+export { SuccessConfettiAnimation } from './ui/success-confetti-animation';
+export type { SuccessConfettiAnimationProps } from './ui/success-confetti-animation';
 export { SponsorDetail } from './ui/sponsor-detail';
 export type { SponsorDetailProps } from './ui/sponsor-detail';
 

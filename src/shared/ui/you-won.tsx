@@ -2,8 +2,6 @@ import * as React from "react";
 import { cn } from "../lib/utils";
 import { PrizeCard } from "./prize-card";
 import { BrandLinkAnimation } from "./brand-link-animation";
-import { ConfettiBackground } from "./confetti-background";
-import { TrophyAnimation } from "./trophy-animation";
 import { SponsorDetail } from "./sponsor-detail";
 import type { Sponsor } from "../types";
 

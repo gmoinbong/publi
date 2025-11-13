@@ -6,6 +6,8 @@ import {
   YouWon,
   YouLost,
   ClaimReward,
+  FailedAnimation,
+  SuccessConfettiAnimation,
 } from "./shared";
 import { useCountdown } from "./hooks/use-countdown";
 import { useState, useRef } from "react";
@@ -59,6 +61,8 @@ function App() {
   const [showSlotMachine, setShowSlotMachine] = useState(false);
   const [showYouWon, setShowYouWon] = useState(false);
   const [showYouLost, setShowYouLost] = useState(false);
+  const [showFailedAnimation, setShowFailedAnimation] = useState(false);
+  const [showSuccessConfetti, setShowSuccessConfetti] = useState(false);
   const [showClaimReward, setShowClaimReward] = useState(false);
   const [winner, setWinner] = useState<(typeof sponsors)[0] | null>(null);
   const slotMachineRef = useRef<{ startSpin: () => void }>(null);
@@ -67,6 +71,8 @@ function App() {
     setShowSlotMachine(true);
     setShowYouWon(false);
     setShowYouLost(false);
+    setShowFailedAnimation(false);
+    setShowSuccessConfetti(false);
   };
 
   const handleComplete = (result: {
@@ -77,20 +83,32 @@ function App() {
       setWinner(result.winner);
       setTimeout(() => {
         setShowSlotMachine(false);
-        setShowYouWon(true);
+        setShowSuccessConfetti(true);
       }, 500);
     } else {
       setTimeout(() => {
         setShowSlotMachine(false);
-        setShowYouLost(true);
+        setShowFailedAnimation(true);
       }, 500);
     }
+  };
+
+  const handleFailedAnimationComplete = () => {
+    setShowFailedAnimation(false);
+    setShowYouLost(true);
+  };
+
+  const handleSuccessConfettiComplete = () => {
+    setShowSuccessConfetti(false);
+    setShowYouWon(true);
   };
 
   const handleReset = () => {
     setShowSlotMachine(false);
     setShowYouWon(false);
     setShowYouLost(false);
+    setShowFailedAnimation(false);
+    setShowSuccessConfetti(false);
     setWinner(null);
   };
 
@@ -112,6 +130,8 @@ function App() {
   const handleSpinAgain = () => {
     setShowYouWon(false);
     setShowYouLost(false);
+    setShowFailedAnimation(false);
+    setShowSuccessConfetti(false);
     setShowSlotMachine(false);
     setShowClaimReward(false);
     setWinner(null);
@@ -143,6 +163,22 @@ function App() {
     );
   }
 
+  if (showSuccessConfetti) {
+    return (
+      <main
+        className="min-h-screen w-full flex flex-col items-center justify-center overflow-x-hidden"
+        style={{
+          background:
+            "linear-gradient(136deg, rgba(246, 248, 251, 1) 12%, rgba(255, 207, 178, 1) 100%)",
+        }}
+      >
+        <div className="w-full max-w-[1080px] flex flex-col items-center justify-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+          <SuccessConfettiAnimation onComplete={handleSuccessConfettiComplete} />
+        </div>
+      </main>
+    );
+  }
+
   if (showYouWon && winner) {
     return (
       <main
@@ -164,16 +200,32 @@ function App() {
     );
   }
 
-  if (showYouLost) {
+  if (showFailedAnimation) {
     return (
       <main
-        className="min-h-screen w-full flex flex-col items-center overflow-x-hidden"
+        className="min-h-screen w-full flex flex-col items-center justify-center overflow-x-hidden"
         style={{
           background:
             "linear-gradient(136deg, rgba(246, 248, 251, 1) 19%, rgba(255, 207, 178, 1) 100%)",
         }}
       >
-        <div className="w-full max-w-[1080px] flex flex-col items-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+        <div className="w-full max-w-[1080px] flex flex-col items-center justify-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+          <FailedAnimation onComplete={handleFailedAnimationComplete} />
+        </div>
+      </main>
+    );
+  }
+
+  if (showYouLost) {
+    return (
+      <main
+        className="min-h-screen w-full flex flex-col items-center justify-center overflow-x-hidden"
+        style={{
+          background:
+            "linear-gradient(136deg, rgba(246, 248, 251, 1) 19%, rgba(255, 207, 178, 1) 100%)",
+        }}
+      >
+        <div className="w-full max-w-[1080px] flex flex-col items-center justify-center px-3 sm:px-4 py-4 sm:py-6 md:py-8">
           <YouLost onTryAgain={handleSpinAgain} />
         </div>
       </main>
