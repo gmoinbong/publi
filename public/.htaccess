@@ -1,6 +1,8 @@
 <IfModule mod_mime.c>
-  AddType text/css .css
+  # Set MIME types for JavaScript files (critical for module scripts)
   AddType application/javascript .js
+  AddType application/javascript .mjs
+  AddType text/css .css
   AddType application/json .json
   AddType image/svg+xml .svg
   AddType image/png .png
